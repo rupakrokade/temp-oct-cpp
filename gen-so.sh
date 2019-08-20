@@ -1,5 +1,5 @@
 #!/bin/bash
-rm *.out *.so *.o *.oct
+rm -f *.out *.so *.o *.oct
 
 if [[ -z "$*"  ]];
 then 
@@ -9,7 +9,7 @@ fi
 
 #The $1 is the filename that can be passed as an argument to this file. Default is 'fun'
 
-mkoctfile -loctave -loctinterp -fPIC $1.cpp
+mkoctfile -loctave -loctinterp -fPIC $1.cpp 
 g++ -loctave -loctinterp -shared -o lib$1.so $1.o
 #sudo cp libfun.so /usr/lib
 #sudo /sbin/ldconfig
