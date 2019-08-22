@@ -1,5 +1,6 @@
 #include<iostream>
 #include"fun.h"
+//#include "funcdemo.h"
 
 int main(void)
 {
