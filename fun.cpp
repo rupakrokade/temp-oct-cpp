@@ -10,14 +10,14 @@
 extern "C"
 {
 
-double fun (void)
+int fun (double* answ, int size)
 {
-  double answ;
+  //double answ;
 // Create interpreter.
 	
 	static octave::interpreter interpreter;
 	bool status = interpreter.initialized();
-	double output[20];
+	
 	if(status==false)
 	{
 	interpreter.initialize ();
@@ -34,14 +34,21 @@ double fun (void)
 	try
 	{	
 
-		octave_idx_type n = 5;
+		octave_idx_type n = size;
 		octave_value_list in;
 
 		in(0) = octave_value(n);
 
-		octave_value_list out = octave::feval ("rand", in, 1);
+		octave_value_list out = octave::feval ("hamming", in, 1);
+		Matrix mOut(out(0).matrix_value());
+		//std::cout << mOut << "\n";
 
-		answ = out(0).float_value();
+
+		for(int i=0; i<size; i++)
+		{
+			answ[i] = mOut(i);//.float_value();
+		}
+		
 		
 		/*		
 		Matrix mOut(out(0).matrix_value());
@@ -59,7 +66,7 @@ double fun (void)
 			std::cout << answ[i] << std::endl;
 		}*/
 		//std::cerr << "REACHED HERE!" << *answ << "\n";
-		return answ;
+		//return answ;
 
 	
 		

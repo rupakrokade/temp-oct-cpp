@@ -4,8 +4,10 @@
 
 int main(void)
 {
-  //double answ;
-  //fun(&answ);
-	std::cout << fun() << '\n';
+  int n=5;
+	double ar[n];
+
+	fun(ar, n);
+	std::cout << ar[1] << std::endl;
 	return 0;
 }
