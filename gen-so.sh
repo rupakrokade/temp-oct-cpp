@@ -24,5 +24,5 @@ g++ -Wall -L$(pwd) -Wl,-rpath=$(pwd) -o test main.cpp -l$1
 #sudo /sbin/ldconfig
 #g++ -shared -o lib$1.so $1.o
 #g++ -L$(pwd) -Wl,-rpath=$(pwd) -Wall -o oct main.cpp -l$1
-
-
+cp fun.h ../../scilab_octave/thirdparty/linux/include/
+cp libfun.so ../../scilab_octave/thirdparty/linux/lib/x64/

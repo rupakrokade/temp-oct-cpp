@@ -1,1 +1,2 @@
-extern "C" int fun(void);
+extern "C" double fun();
+

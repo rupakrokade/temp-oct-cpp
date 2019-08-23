@@ -4,15 +4,16 @@
 #include <octave/octave.h>
 #include <octave/parse.h>
 #include <octave/interpreter.h>
+#include <math.h>
 #include "fun.h"
 
 extern "C"
 {
 
-int fun (void)
+double fun (void)
 {
-	int answ;
-	// Create interpreter.
+  double answ;
+// Create interpreter.
 	
 	static octave::interpreter interpreter;
 	bool status = interpreter.initialized();
@@ -33,15 +34,31 @@ int fun (void)
 	try
 	{	
 
-		octave_idx_type n = 3.6;
+		octave_idx_type n = 5;
 		octave_value_list in;
 
 		in(0) = octave_value(n);
 
-		octave_value_list out = octave::feval ("round", in, 1);
+		octave_value_list out = octave::feval ("rand", in, 1);
+
+		answ = out(0).float_value();
 		
-	  answ = out(0).int_value();
+		/*		
+		Matrix mOut(out(0).matrix_value());
+
+		//std::cout << mOut << "\n";
+
 		
+		for(int i=0;i<n;i++)
+		{
+			answ[i] = mOut(i);//.int_value();
+		}
+	  
+		for(int i=0;i<n;i++)
+		{
+			std::cout << answ[i] << std::endl;
+		}*/
+		//std::cerr << "REACHED HERE!" << *answ << "\n";
 		return answ;
 
 	
@@ -57,7 +74,6 @@ int fun (void)
 	{
 		std::cerr << "error encountered in Octave evaluator!" << std::endl;
 	}
-	
 	return 0;
 }
 }
