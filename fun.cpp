@@ -5,12 +5,13 @@
 #include <octave/parse.h>
 #include <octave/interpreter.h>
 #include <math.h>
+#include <string>
 #include "fun.h"
 
 extern "C"
 {
 
-int fun (double* answ, int size)
+int fun (double* answ, int size, std::string name)
 {
   //double answ;
 // Create interpreter.
@@ -33,13 +34,14 @@ int fun (double* answ, int size)
 	
 	try
 	{	
-
+		//std::cout << size << "\n";
 		octave_idx_type n = size;
 		octave_value_list in;
 
 		in(0) = octave_value(n);
 
-		octave_value_list out = octave::feval ("hamming", in, 1);
+		octave_value_list out = octave::feval (name, in, 1);
+		//octave_value_list out = octave::feval ("hamming", in, 1);
 		Matrix mOut(out(0).matrix_value());
 		//std::cout << mOut << "\n";
 

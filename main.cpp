@@ -7,7 +7,7 @@ int main(void)
   int n=5;
 	double ar[n];
 
-	fun(ar, n);
+	fun(ar, n, "hamming");
 	std::cout << ar[1] << std::endl;
 	return 0;
 }
