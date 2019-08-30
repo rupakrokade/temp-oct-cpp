@@ -11,7 +11,7 @@
 extern "C"
 {
 
-int fun (double* answ, int size, std::string name)
+int fun (double* answ, double* size, std::string name)
 {
   //double answ;
 // Create interpreter.
@@ -35,18 +35,24 @@ int fun (double* answ, int size, std::string name)
 	try
 	{	
 		//std::cout << size << "\n";
-		octave_idx_type n = size;
+		//octave_idx_type n = size;
 		octave_value_list in;
 
-		in(0) = octave_value(n);
+		in(0) = octave_value(size);
+		//std::cout << in.length() << "\n";
+		//std::cout << in << "\n";
+
+		for (octave_idx_type i = 0; i < in.length(); i++)
+        in(i) = octave_value (size[i]);
+		
 
 		octave_value_list out = octave::feval (name, in, 1);
 		//octave_value_list out = octave::feval ("hamming", in, 1);
 		Matrix mOut(out(0).matrix_value());
 		//std::cout << mOut << "\n";
 
-
-		for(int i=0; i<size; i++)
+		//std::cout << mOut.length() << "\n";
+		for(int i=0; i<mOut.length(); i++)
 		{
 			answ[i] = mOut(i);//.float_value();
 		}
