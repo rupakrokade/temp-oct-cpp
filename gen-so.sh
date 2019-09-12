@@ -13,7 +13,7 @@ mkoctfile -loctave -loctinterp -fPIC $1.cpp
 g++ -loctave -loctinterp -shared -o lib$1.so $1.o
 #sudo cp libfun.so /usr/lib
 #sudo /sbin/ldconfig
-g++ -Wall -L$(pwd) -Wl,-rpath=$(pwd) -o test main.cpp -l$1
+g++ -Wall -L$(pwd) -Wl,-rpath=$(pwd) -o test main.cpp -l$1 -g	
 
 
 #mkoctfile -fPIC --link-stand-alone $1.cpp -o $1.out

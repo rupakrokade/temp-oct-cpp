@@ -1,5 +1,6 @@
 
 #include <iostream>
+#include <stdlib.h>
 #include <octave/oct.h>
 #include <octave/octave.h>
 #include <octave/parse.h>
@@ -11,7 +12,7 @@
 extern "C"
 {
 
-int fun (double* answ, double* in1, int in1_row, std::string name, std::string opt)
+int fun (octf *inp)
 {
   //double answ;
 // Create interpreter.
@@ -39,10 +40,10 @@ int fun (double* answ, double* in1, int in1_row, std::string name, std::string o
 		octave_value_list in;
 
 	//std::vector<double> x;
-		Matrix inMatrix_x(in1_row, 1);
-		for( unsigned int i = 0; i < in1_row; i++ )
+		Matrix inMatrix_x(inp->size_input1[2], 1);
+		for( unsigned int i = 0; i < inp->size_input1[2]; i++ )
 		{
-				inMatrix_x(i, 0) = in1[i]; // inMatrix_x(i) would also do the job
+				inMatrix_x(i, 0) = inp->input1[i]; // inMatrix_x(i) would also do the job
 		}
 /*
 		std::cout << sizeof inMatrix_x / sizeof inMatrix_x(0,0) << "\n";
@@ -65,19 +66,23 @@ int fun (double* answ, double* in1, int in1_row, std::string name, std::string o
         in(i) = octave_value (size[i]);
 		
 */
-		if(opt!="")
-			in(1) = opt;
+		if(inp->name2!="")
+			in(1) = inp->name2;
 	
-
-		octave_value_list out = octave::feval (name, in, 1);
+		octave_value_list out = octave::feval (inp->name1, in, 1);
+		//octave_value_list out = octave::feval (name, in, 1);
 		//octave_value_list out = octave::feval ("hamming", in, 1);
 		Matrix mOut(out(0).matrix_value());
 		//std::cout << mOut << "\n";
-
-		//std::cout << mOut.length() << "\n";
-		for(int i=0; i<mOut.length(); i++)
+		int len = mOut.numel();
+		inp->size_output1[1] = len;
+		inp->output1 = new double[len];
+		//inp->arr = (double*)malloc(sizeof(double)*len);
+		//inp->arr[0] = (double)len;
+		//std::cout << mOut(0) << "\n";
+		for(int i=0; i<len; i++)
 		{
-			answ[i] = mOut(i);//.float_value();
+			inp->output1[i] = mOut(i);//.float_value();
 		}
 		
 		
