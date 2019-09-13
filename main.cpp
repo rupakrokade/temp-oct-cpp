@@ -5,21 +5,13 @@
 
 int main(void)
 {
-/*
-  double* n;
-	double val = 5.0;
-	//val[0]=5.0;
-	n = &val;
-	double ar[(int)val];
-	//n[0]=3.0;
-*/
-	
+
 	octf ins;
 
 	octf *inptr = &ins;
 
-	ins.name1 = "hamming";
-	ins.name2 = "symmetric";
+	ins.name1 = "sqrt";
+	ins.name2 = NULL; //Passing "" will not work
 
 
 
@@ -28,25 +20,27 @@ int main(void)
 	ins.size_input1[2]=dim;
 
 	double val = 5.0;
-	//double in[dim];
+
 	for(int i=0; i<dim; i++)
 		ins.input1[i]=i+val;
 	
-	//double ar[(int)val];
 
+	int status_fun = fun(inptr);
 
-	//ins.arr = new double[5];
-	//ins.arr = (double*)malloc(sizeof(double)*5);
-	fun(inptr);
-	
-	//int out_len = 5;//ins.output1[0];
+	if(status_fun==1)
+	{
+		std::cout<< "Octave function failed" << std::endl;
+		return 1;
+	}
+	else
+	{
+		for(int i=0; i<ins.size_output1[1]; i++)
+		{
+			std::cout<< i+1 <<"\t" << ins.output1[i] << std::endl;
+		}
 
-	//fun(ar, in, dim, "sqrt","");
-	for(int i=0; i<ins.size_output1[1]; i++)
-{
-		std::cout<< i <<"\t" << ins.output1[i] << std::endl;
-}
-	free(ins.output1);
-	free(ins.input1);
+		free(ins.output1);
+		free(ins.input1);
+	}
 	return 0;
 }

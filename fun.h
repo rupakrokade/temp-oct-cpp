@@ -5,8 +5,8 @@ extern "C"
 {
 typedef struct octave_fun
 {
-	char* name1;
-	char* name2;
+	char* name1 = "";
+	char* name2 = "";
 	double* input1;
 	int size_input1[2];
 	double* output1;
