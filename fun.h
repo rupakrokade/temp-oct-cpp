@@ -7,8 +7,13 @@ typedef struct octave_fun
 {
 	char* name1 = "";
 	char* name2 = "";
+	char* package = "";
 	double* input1;
+	double* input2;
+	double* input3;
 	int size_input1[2];
+	int size_input2[2];
+	int size_input3[2];
 	double* output1;
 	int size_output1[2];
 }octf;
