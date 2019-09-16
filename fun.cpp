@@ -103,19 +103,20 @@ extern "C"
 
 			}
 //-------------------------------------------------------
-			if(inp->name2)
+/*			if(inp->name2)
 			{
-				in(3) = inp->name2;
+				in(4) = inp->name2;
 			}
+*/
 
-			octave::feval ("pkg", ovl("load", "signal"), 0);
-/*
+			//octave::feval ("pkg", ovl("load", "signal"), 0);
+
 			if(inp->package)
 			{
 				std::cout << "Loading package: " << inp->package << "\n";
 				octave::feval ("pkg", ovl("load", inp->package), 0);
 			}
-*/
+
 			octave_value_list out = octave::feval (inp->name1, in, 1);
 
 			Matrix mOut(out(0).matrix_value());
