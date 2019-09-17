@@ -10,7 +10,7 @@ int main(void)
 
 	octf *inptr = &ins;
 
-	ins.name1 = "arch_rnd";
+	ins.name1 = "arburg";
 	ins.package = "signal";
 	ins.name2 = NULL; //Passing "" will not work
 
@@ -49,7 +49,7 @@ std::cout << "--Input matrix1: " << row1 << "X" << col1 << "\n";
 	}
 */
 
-	ins.input1[0] = 1;
+	ins.input1[0] = 5;
   ins.input1[1] = 2;
   ins.input1[2] = 3;
   ins.input1[3] = 4;
@@ -59,7 +59,7 @@ std::cout << "--Input matrix1: " << row1 << "X" << col1 << "\n";
 
 //////////////Second Input///////////////////
 	int row2 = 1;
-	int col2 = 4;
+	int col2 = 1;
 	//i,j,k=0;
 	int imat2[row2][col2];
 	int dim2 = row2*col2;
@@ -92,10 +92,10 @@ std::cout << "--Input matrix2: " << row2 << "X" << col2 << "\n";
 	}
 */
 
-	ins.input2[0] = 7;
-  ins.input2[1] = 8;
+	ins.input2[0] = 2;
+/*  ins.input2[1] = 8;
   ins.input2[2] = 9;
-  ins.input2[3] = 10;
+  ins.input2[3] = 10;*/
 //  ins.input2[4] = 5;
 
 //	for(i=0;i<dim;i++)
@@ -103,9 +103,9 @@ std::cout << "--Input matrix2: " << row2 << "X" << col2 << "\n";
 
 //	printf("\n");
 
-//////////////Second Input///////////////////
-	int row3 = 1;
-	int col3 = 1;
+//////////////Third Input///////////////////
+	int row3 = 0;
+	int col3 = 0;
 	//i,j,k=0;
 	int imat3[row2][col2];
 	int dim3 = row3*col3;
@@ -164,23 +164,50 @@ std::cout << "--Input matrix3: " << row3 << "X" << col3 << "\n";
 //			std::cout<< i+1 <<"\t" << ins.output1[i] << std::endl;
 //		}
 
-	int out_dim = ins.size_output1[1] * ins.size_output1[2];
-	k=0;
-
-	std::cout << "--output matrix: " << ins.size_output1[1] << "X" << ins.size_output1[2] << "\n";
-	for(i=0;i<ins.size_output1[1];i++)
+/////////////////First Output//////////////////////
+	if(ins.size_output1[1]!=0 || ins.size_output1[2]!=0)
 	{
-		for(j=0;j<ins.size_output1[2];j++)
-		{
-			std::cout << ins.output1[k] << " ";
-			k++;
-		}
-	std::cout << '\n';
-	}
+		int out_dim = ins.size_output1[1] * ins.size_output1[2];
+		k=0;
 
-std::cout << '\n';
+		std::cout << "--output matrix: " << ins.size_output1[1] << "X" << ins.size_output1[2] << "\n";
+		for(i=0;i<ins.size_output1[1];i++)
+		{
+			for(j=0;j<ins.size_output1[2];j++)
+			{
+				std::cout << ins.output1[k] << " ";
+				k++;
+			}
+		std::cout << '\n';
+		}
+
+		std::cout << '\n';
+	}
+//-----------------------------------------------------
+
+/////////////////Second Output//////////////////////
+	if(ins.size_output2[1]!=0 || ins.size_output2[2]!=0)
+	{
+		int out_dim2 = ins.size_output2[1] * ins.size_output2[2];
+		k=0;
+
+		std::cout << "--output matrix2: " << ins.size_output2[1] << "X" << ins.size_output2[2] << "\n";
+		for(i=0;i<ins.size_output2[1];i++)
+		{
+			for(j=0;j<ins.size_output2[2];j++)
+			{
+				std::cout << ins.output2[k] << " ";
+				k++;
+			}
+			std::cout << '\n';
+		}
+
+		std::cout << '\n';
+	}
+//-----------------------------------------------------
 
 		free(ins.output1);
+		free(ins.output2);
 		free(ins.input1);
 		free(ins.input2);
 		free(ins.input3);

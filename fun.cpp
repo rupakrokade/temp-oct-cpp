@@ -51,9 +51,9 @@ extern "C"
 				in(0) = inMatrix_x;
 
 				Matrix mIn(in(0).matrix_value());
-				std::cout << "-------Input Matrix-------" << "\n";
-				std::cout << mIn << "\n";
-				std::cout << "--------------------" << "\n";
+				//std::cout << "-------Input Matrix-------" << "\n";
+				//std::cout << mIn << "\n";
+				//std::cout << "--------------------" << "\n";
 			}
 ////////////////Second Input////////////////
 			if(inp->size_input2[1]!=0 || inp->size_input2[2]!=0)
@@ -73,12 +73,12 @@ extern "C"
 
 				in(1) = inMatrix_x2;
 				Matrix mIn2(in(1).matrix_value());
-				std::cout << "-------Input Matrix-------" << "\n";
-				std::cout << mIn2 << "\n";
-				std::cout << "--------------------" << "\n";
+				//std::cout << "-------Input Matrix-------" << "\n";
+				//std::cout << mIn2 << "\n";
+				//std::cout << "--------------------" << "\n";
 
 			}
-////////////////Second Input////////////////
+////////////////Third Input////////////////
 			if(inp->size_input3[1]!=0 || inp->size_input3[2]!=0)
 			{
 				octave_value_list in3;
@@ -96,9 +96,9 @@ extern "C"
 
 				in(2) = inMatrix_x3;
 				Matrix mIn3(in(2).matrix_value());
-				std::cout << "-------Input Matrix-------" << "\n";
-				std::cout << mIn3 << "\n";
-				std::cout << "--------------------" << "\n";
+				//std::cout << "-------Input Matrix-------" << "\n";
+				//std::cout << mIn3 << "\n";
+				//std::cout << "--------------------" << "\n";
 
 
 			}
@@ -119,14 +119,14 @@ extern "C"
 
 			octave_value_list out = octave::feval (inp->name1, in, 1);
 
+////////////////First Output//////////////////////////
+			int nouts = out.length();
+			//std::cout << "number of outputs are:" << nouts <<'\n';
+			inp->out_count=nouts;
 			Matrix mOut(out(0).matrix_value());
-
 
 			//std::cout << mOut << "\n";
 
-
-
-			
 			int row1 = mOut.rows();
 			int col1 = mOut.columns();
 			//std::cout << "--output matrix: " << row1 << "X" << col1 << "\n";
@@ -145,11 +145,41 @@ extern "C"
 						k++;
 					}
 				}
+			//Matrix mOut2(out(1).matrix_value());
+			//(out(1)).exists();
+//std::cout << out << '\n';
 
-//			for(int i=0; i<len; i++)
-//			{
-//				inp->output1[i] = mOut(i);
-//			}	
+///-----------------------------------------------------
+
+////////////////Second Output//////////////////////////
+		if(nouts>1)
+		{
+			Matrix mOut2(out(1).matrix_value());
+
+			//std::cout << mOut << "\n";
+
+			int row2 = mOut2.rows();
+			int col2 = mOut2.columns();
+			//std::cout << "--output matrix2: " << row2 << "X" << col2 << "\n";
+
+			inp->size_output2[1] = row2;
+			inp->size_output2[2] = col2;
+			//std::cout << "--output matrix2 inp->: " << inp->size_output2[1] << "X" << inp->size_output2[1] << "\n";
+			int len2 = row2*col2;
+			inp->output2 = new double[len2];
+			k=0;
+
+			for(unsigned int i=0;i<row2;i++)
+				{
+					for(unsigned int j=0;j<col2;j++)
+					{
+						inp->output2[k]=mOut2(k);
+						k++;
+					}
+				}
+			}
+///-----------------------------------------------------
+
 		}
 		catch (const octave::exit_exception& ex)
 		{

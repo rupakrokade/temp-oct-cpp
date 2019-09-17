@@ -14,8 +14,11 @@ typedef struct octave_fun
 	int size_input1[2];
 	int size_input2[2];
 	int size_input3[2];
-	double* output1;
 	int size_output1[2];
+	int size_output2[2];
+	int out_count;
+	double* output1;
+	double* output2;
 }octf;
 
 int fun(octf *inp);
